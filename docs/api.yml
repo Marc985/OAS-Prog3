@@ -21,14 +21,14 @@ paths:
         #TODO3: add parameter to filter books by intervals of dates of the releaseDate
         - in: query
           name: releaseDateStart
-          description: filter return books with a releaseDate  greater or equal start date
+          description: startDate
           required: false
           schema:
             type: string
             format: date
         - in: query
           name: releaseDateEnd
-          description: filter return books with a releaseDate less or equal than the endDate
+          description: endDate
           required: false
           schema:
             type: string
