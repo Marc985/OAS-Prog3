@@ -25,11 +25,11 @@ paths:
           required: false
           schema:
             type: object
-              properties:
-                start:
-                  $ref: '#/components/schemas/Book/properties/releaseDate'
-                end:
-                  $ref: '#/components/schemas/Book/properties/releaseDate'
+            properties:
+              start:
+                $ref: '#/components/schemas/Book/properties/releaseDate'
+              end:
+                $ref: '#/components/schemas/Book/properties/releaseDate'
 
       responses:
         200:
