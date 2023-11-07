@@ -54,7 +54,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Book'
+                $ref: '#/components/schemas/createUpdate'
       responses:
         200:
           description: The list of created or updated books
@@ -123,28 +123,6 @@ paths:
     
 components:
   schemas:
-    Book:     
-      type: object
-      properties:
-        id:
-          type: string
-        bookName:
-          type: string
-        author:
-          #TODO1: set it as a component with properties : id, name, sex (M or F)
-          type: array
-          $ref: '#/components/schemas/Author'        
-        pageNumbers:
-          type: integer
-        topic:
-          type: string
-          enum:
-            - ROMANCE
-            - COMEDY
-            - OTHER
-        releaseDate:
-          type: string
-          format: date
       #the Author component
     Author:
       type: object
@@ -177,5 +155,13 @@ components:
             releaseDate:
               type: string
               format: date
+    Book:
+      allOf:
+        - $ref: '#/components/schemas/createUpdate'
+        - type : object
+        - properties:
+            author:
+              type: object
+              $ref: '#/components/schemas/Author'
       
      
