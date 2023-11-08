@@ -259,6 +259,23 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
 
+  /topic/book:
+    put:
+      description: associate all the topic and book in one page
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              items:
+                $ref: '#/components/schemas/updateBookTopic'
+      responses:
+        200:
+          description: all the id association in one page 
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Book'
      
 components:
   schemas:
@@ -321,6 +338,13 @@ components:
             - ROMANCE
             - COMEDY
             - OTHER
+    updateBookTopic:
+      type: object
+      properties:
+        idBook:
+          type: string
+        idTopic:
+          type: string
           
           
 
