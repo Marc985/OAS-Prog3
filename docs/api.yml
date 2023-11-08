@@ -42,9 +42,8 @@ paths:
           required: false
           schema: 
             type: string
-
-
-        - $ref: '#/components/parameters/queryPagination'
+        - $ref: '#/components/parameters/queryPage'
+        
       
 
           
@@ -52,13 +51,8 @@ paths:
 
       responses:
         200:
-          description: The list of filtered books
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
+          $ref: '#/components/schemas/response200'
+
     put:
       tags:
         - "books"
@@ -125,7 +119,9 @@ paths:
                 $ref: '#/components/schemas/Author'
       responses:
         200:
-           $ref: '#/components/responses/response200'
+          
+           $ref: '#/components/schemas/response200'
+           
       
     delete:
         tags:
@@ -289,7 +285,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
   /authors/{pageId}/{pageSizeId}:
-    put:
+    get:
       tags:
         - "author"
       summary: pagnation
@@ -373,9 +369,61 @@ components:
           type: string
         idTopic:
           type: string
+   
+    response:
+      type: object
+      properties:
+        schema: 
+            type: object
+            properties:
+              status:
+                type: object
+               
+                properties:
+                  code:
+                    
+                    type: integer
+                    
+                  message: 
+                    type: string
+              body: 
+                type: object
+    succefullyResponse:
+      allOf:
+        - $ref: '#/components/schemas/response'
+        - example:
+            status:
+              code: 200
+              message: success
+    badRequest:
+      allOf:
+        - $ref: '#/components/schemas/response'
+        - example:
+            status:
+              code: 400
+              message: bad request
+    forbidden:
+      allOf:
+        - $ref: '#/components/schemas/response'
+        - example:
+            status:
+              code: 403
+              message: bad request
+    ServerError:
+      allOf:
+        - $ref: '#/components/schemas/response'
+        - example:
+            status:
+              code: 500
+              message: internal server error
+
+              
+
+              
+
     
   parameters:
-    queryPagination:
+    queryPage:
       name: queryPagination
       in: query
       description: pagination using the query
@@ -389,6 +437,7 @@ components:
           pageSize:
             type: integer
             default: 50
+            
     pathPaginationPage:
       in: path
       name: pageId
@@ -405,6 +454,11 @@ components:
       schema:
         type: integer
         default: 50
+   
+    
+    
+
+  
   responses:
     defaultResponse:
       description: the response
@@ -415,19 +469,17 @@ components:
             properties:
               status:
                 type: object
+               
                 properties:
                   code:
+                    
                     type: integer
+                    
                   message: 
                     type: string
               body: 
                 type: object
-  response200:
-    allOf:
-      - $ref: '#/components/responses/defaultResponse'
-      - properties:
-          data: 
-            type: object  
+   
 
 
   
