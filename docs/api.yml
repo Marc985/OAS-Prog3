@@ -10,6 +10,8 @@ tags:
     description: books operation
   - name: author
     description: author operation
+  - name: topic
+    description: topic operation
 paths:
   /books:
     
@@ -192,7 +194,10 @@ paths:
                   $ref: '#/components/schemas/Book'
 
   /topic:
+    
     get:
+      tags:
+        - "topic"
       summary: get all topics
       description: return all filtered by topic name
       parameters:
@@ -210,6 +215,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/topic'
     put:
+      tags:
+        - "topic"
       summary: add or update topic
       description: return the updated or added topic
       requestBody:
@@ -227,6 +234,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/topic'
     delete:
+      tags:
+        - "topic"
       description: deleted a topic or all the topic
       parameters:
         - in: query
@@ -241,6 +250,8 @@ paths:
          
   /topic/{idTopic}/author/{idBook}:
     put:
+      tags:
+        - "topic"
       summary: associate the id of topic  and bookId
       description: return all the  book and topic
       parameters:
@@ -261,6 +272,8 @@ paths:
 
   /topic/book:
     put:
+      tags:
+        - "topic"
       description: associate all the topic and book in one page
       requestBody:
         content:
