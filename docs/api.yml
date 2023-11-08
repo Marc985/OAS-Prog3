@@ -42,21 +42,7 @@ paths:
               end:
                 $ref: '#/components/schemas/createUpdate/properties/releaseDate'
 
-        - in: query
-          name: page
-          description: the page number
-          required: false
-          
-          schema:
-            type: integer
-            default: 1
-        - in: query
-          name: pageSize
-          description: the number of page 
-          required: false
-          schema:
-            type: integer
-            default: 50
+        - $ref: '#/components/parameters/queryPagination'
       
 
           
@@ -400,7 +386,26 @@ components:
           type: string
         idTopic:
           type: string
+    
+  parameters:
+    queryPagination:
+      name: queryPagination
+      in: query
+      description: pagination
+      required: false
+      schema:
+        type: object
+        properties:
+          page: 
+            type: integer
+            default: 1
+          pageSize:
+            type: integer
+            default: 50
           
+      
+       
+
           
 
 
