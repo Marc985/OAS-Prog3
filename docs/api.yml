@@ -35,12 +35,14 @@ paths:
           description: startDate
           required: false
           schema:
-            type: object
-            properties:
-              start:
-                $ref: '#/components/schemas/createUpdate/properties/releaseDate'
-              end:
-                $ref: '#/components/schemas/createUpdate/properties/releaseDate'
+            type: string
+        - in: query
+          name: releaseDateEnd
+          description: endDate
+          required: false
+          schema: 
+            type: string
+
 
         - $ref: '#/components/parameters/queryPagination'
       
@@ -249,7 +251,7 @@ paths:
           description: the book or all book are deletd succefully
 
          
-  /topic/{idTopic}/author/{idBook}:
+  /topic/{idTopic}/Book/{idBook}:
     put:
       tags:
         - "topic"
@@ -290,26 +292,15 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/Book'
-  /authors/{page}/{pageSize}:
+  /authors/{pageId}/{pageSizeId}:
     put:
       tags:
         - "author"
       summary: pagnation
       parameters:
-        - in: path
-          name: page
-          description: page number
-          required: true
-          schema: 
-            type: integer
-            default: 1
-        - in: path
-          name: pageSize
-          description: the size of the page
-          required: true
-          schema: 
-            type: integer
-            default: 50
+        - $ref: '#/components/parameters/pathPaginationPage'
+           
+        - $ref: '#/components/parameters/pathPaginationPageSize'
       responses:
         200:
           description: the pagination author
@@ -391,7 +382,7 @@ components:
     queryPagination:
       name: queryPagination
       in: query
-      description: pagination
+      description: pagination using the query
       required: false
       schema:
         type: object
@@ -402,7 +393,23 @@ components:
           pageSize:
             type: integer
             default: 50
-          
+    pathPaginationPage:
+      in: path
+      name: pageId
+      description: the number of the page
+      required: true
+      schema:
+        type: integer
+        default: 1
+    pathPaginationPageSize:  
+      in: path
+      name: pageSizeId
+      description: the size of the page
+      required: true
+      schema:
+        type: integer
+        default: 50
+   
       
        
 
