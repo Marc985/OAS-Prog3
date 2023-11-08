@@ -239,8 +239,27 @@ paths:
           description: the book or all book are deletd succefully
 
          
+  /topic/{idTopic}/author/{idBook}:
+    put:
+      summary: associate the id of topic  and bookId
+      description: return all the  book and topic
+      parameters:
+        - in: path
+          name: idTopic
+          required: true
+          description: id of the topic
+          schema:
+            type: string
+      responses:
+        200:
+          description: the topic and book which has been associated
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Book'
 
-    
+     
 components:
   schemas:
       #the Author component
@@ -266,12 +285,7 @@ components:
                  
             pageNumbers:
               type: integer
-            topic:
-              type: string
-              enum:
-              - ROMANCE
-              - COMEDY
-              - OTHER
+           
             releaseDate:
               type: string
               format: date
@@ -282,6 +296,8 @@ components:
         - properties:
             author:
               $ref: '#/components/schemas/Author'
+            topic:
+              $ref: '#/components/schemas/topic'
     updateBookAuthor:
       type: object
       properties:
