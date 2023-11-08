@@ -1,0 +1,7 @@
+2-b-i:UpdateBook possede uniquement l'identifiant createUpdate mais pas authorName et bookName parce c'est l'identifiant qui permet de reconnaitre un author et un book 
+    ii:updateBookAuthor devrait avoir les propriétés de crupdate et author lors de la reponse
+
+3-a: Les paginations sont necessaire pour gerer des données  volumineuse
+
+4-a:oui on peut gerer la pagination à travers l'en tete des requetes car les en-tete offres une flexibilité pour ajouter  des informations supplementaire
+  -b:on doit pas gerer la pagination à travers l'en-tete pour plus de visibilité
