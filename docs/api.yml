@@ -5,12 +5,21 @@ info:
   description: STD22095
 servers:
   - url: https://library.com
+tags:
+  - name: books
+    description: books operation
+  - name: author
+    description: author operation
 paths:
   /books:
+    
     get:
+      tags:
+        - "books"
       summary: Get all books
       description: The returned books are ordered by updated datetime.
       operationId: getBooks
+     
       parameters:
         - in: query
           name: bookName
@@ -27,9 +36,9 @@ paths:
             type: object
             properties:
               start:
-                $ref: '#/components/schemas/Book/properties/releaseDate'
+                $ref: '#/components/schemas/createUpdate/properties/releaseDate'
               end:
-                $ref: '#/components/schemas/Book/properties/releaseDate'
+                $ref: '#/components/schemas/createUpdate/properties/releaseDate'
 
              
 
@@ -46,6 +55,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
     put:
+      tags:
+        - "books"
       summary: Create or update a list of books
       operationId: crupdateBooks
       requestBody:
@@ -67,6 +78,8 @@ paths:
   /authors:
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
     get:
+      tags:
+        - "author"
       summary: get author 
       description: get author by filtered name
       operationId: getAuthors
@@ -86,7 +99,14 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+  
+          
+
+
+      
     put:
+      tags:
+        - "author"
       summary: add or update author
       operationId: createUpdateBook
       requestBody:
@@ -105,7 +125,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+      
     delete:
+        tags:
+          - "author"
         summary: delete author
         operationId: deleteAuthor
         parameters:
@@ -118,6 +141,67 @@ paths:
         responses:
           200:
             description: the author is deleted
+         
+  /books/{bookId}/authors/{authorId}:
+    put:
+      tags:
+        - "books"
+      parameters:
+        - in: path
+          name: bookId
+          description: id of the book
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: authorId
+          description: id of the author
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: the author of a book
+          content:
+            application/json:
+              schema:
+                
+                items:
+                  $ref: '#/components/schemas/Book'
+                  
+  /book/author:
+    put:
+      tags:
+        - "books"
+      parameters:
+        - in: query
+          name: bookAndAuthor
+          description: id of the book and the author to releaseDate
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/updateBookAuthor'
+      responses:
+        200:
+          description: the list of the author and book
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Book'
+
+  /topic:
+    get:
+      summary: get all topics
+      description: return all filtered by topic name
+      parameters:
+        - in: query
+          name: topicName
+          required: false
+          schema:
+            type: string
+        
+
          
 
     
@@ -161,7 +245,19 @@ components:
         - type : object
         - properties:
             author:
-              type: object
               $ref: '#/components/schemas/Author'
+    updateBookAuthor:
+      type: object
+      properties:
+        idAuthor:
+          type: string
+        idBook:
+          type: string
+        
+
+             # updateBookAuthors:idauhtors,idbook
       
-     
+ 
+          #a-lasa misy get put delete ny topic :id,name(enum dia avadika objet);rehefa micreer book dia tsy misy topic intsony
+#manaova pagination aminy alalany query parameters(topic)(filtre de pagination)
+#associer topic et authors
