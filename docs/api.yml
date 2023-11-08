@@ -409,9 +409,26 @@ components:
       schema:
         type: integer
         default: 50
+  responses:
+    defautltResponse:
+      description: the response
+      content:
+        application/json:
+          schema: 
+            type: object
+            properties:
+              status:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message: 
+                    type: string
+              body: 
+                type: object
+                
    
-      
-       
+
 
           
 
