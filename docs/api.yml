@@ -51,7 +51,27 @@ paths:
 
       responses:
         200:
-          $ref: '#/components/schemas/response200'
+          description: all the book
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/succefullyResponse'
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/badRequest'
+        403:
+          description: forbidden 
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/succefullyResponse'
+
 
     put:
       tags:
@@ -96,9 +116,8 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/succefullyResponse'
           
   
         
@@ -119,8 +138,14 @@ paths:
                 $ref: '#/components/schemas/Author'
       responses:
         200:
+          description: the response of the put author
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/succefullyResponse'
           
-           $ref: '#/components/schemas/response200'
+           
            
       
     delete:
@@ -164,7 +189,7 @@ paths:
               schema:
                 
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/succefullyResponse'
                   
   /book/author:
     put:
@@ -186,7 +211,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/succefullyResponse'
 
   /topic:
     
@@ -208,7 +233,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/topic'
+                  $ref: '#/components/schemas/succefullyResponse'
     put:
       tags:
         - "topic"
@@ -227,7 +252,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/topic'
+                  $ref: '#/components/schemas/succefullyResponse'
     delete:
       tags:
         - "topic"
@@ -263,7 +288,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/succefullyResponse'
 
   /topic/book:
     put:
@@ -300,7 +325,8 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Author'
+                  $ref: '#/components/schemas/succefullyResponse'
+
 components:
   schemas:
       #the Author component
@@ -459,26 +485,7 @@ components:
     
 
   
-  responses:
-    defaultResponse:
-      description: the response
-      content:
-        application/json:
-          schema: 
-            type: object
-            properties:
-              status:
-                type: object
-               
-                properties:
-                  code:
-                    
-                    type: integer
-                    
-                  message: 
-                    type: string
-              body: 
-                type: object
+  
    
 
 
