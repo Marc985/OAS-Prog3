@@ -96,6 +96,7 @@ paths:
                   $ref: '#/components/schemas/Book'
   /authors:
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
+ 
     get:
       tags:
         - "author"
@@ -326,7 +327,31 @@ paths:
               schema:
                 items:
                   $ref: '#/components/schemas/succefullyResponse'
-
+  /book/import:
+    post:
+      tags:
+        - "book"
+      summary: import book 
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                excelFile:
+                  type: string
+                  format: binary  # Fichier Excel
+                jsonFile:
+                  type: string
+                  format: binary  # Fichier JSON
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema: 
+                items: 
+                  $ref: '#/components/schemas/Author'
 components:
   schemas:
       #the Author component
