@@ -173,14 +173,15 @@ paths:
     put:
       tags:
         - "books"
-      parameters:
-        - in: query
-          name: bookAndAuthor
-          description: id of the book and the author to releaseDate
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/updateBookAuthor'
+      summary: 'all the book and author'
+      description: id of the book and the author to releaseDate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/updateBookAuthor'
       responses:
         200:
           description: the list of the author and book
@@ -200,7 +201,42 @@ paths:
           required: false
           schema:
             type: string
-        
+      responses:
+        200:
+          description: all filterd topics
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/topic'
+    put:
+      summary: add or update topic
+      description: return the updated or added topic
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/topic'
+      responses:
+        200:
+          description: the topic added
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/topic'
+    delete:
+      description: deleted a topic or all the topic
+      parameters:
+        - in: query
+          name: topicName
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: the book or all book are deletd succefully
 
          
 
@@ -254,6 +290,24 @@ components:
         idBook:
           type: string
         
+    topic:
+      type: object
+      properties:
+        schema:
+          items:
+            $ref: '#/components/schemas/topicName'
+    topicName:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - ROMANCE
+            - COMEDY
+            - OTHER
+          
+          
+
 
              # updateBookAuthors:idauhtors,idbook
       
