@@ -96,14 +96,16 @@ paths:
           schema:
             type: string
       responses:
-        200:
-          description: The list of filtered authors
+
+         200:
+          description: list of author created or updated
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Author'
+                  $ref: '#/components/schemas/Book'
+          
   
         
 
@@ -410,7 +412,7 @@ components:
         type: integer
         default: 50
   responses:
-    defautltResponse:
+    defaultResponse:
       description: the response
       content:
         application/json:
@@ -426,16 +428,9 @@ components:
                     type: string
               body: 
                 type: object
-                
-   
+    
 
+  
 
           
 
-
-             # updateBookAuthors:idauhtors,idbook
-      
- 
-          #a-lasa misy get put delete ny topic :id,name(enum dia avadika objet);rehefa micreer book dia tsy misy topic intsony
-#manaova pagination aminy alalany query parameters(topic)(filtre de pagination)
-#associer topic et authors
