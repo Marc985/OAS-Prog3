@@ -51,27 +51,13 @@ paths:
 
       responses:
         200:
-          description: all the book
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
+          $ref: '#/components/responses/bookList200'
         400:
-          description: bad request
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/badRequest'
+          $ref: '#/components/responses/400'
         403:
-          description: forbidden 
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
-
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
 
     put:
       tags:
@@ -87,16 +73,15 @@ paths:
                 $ref: '#/components/schemas/createUpdate'
       responses:
         200:
-          description: The list of created or updated books
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
-  /authors:
+          $ref: '#/components/responses/bookList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
- 
+  /author:
     get:
       tags:
         - "author"
@@ -112,13 +97,14 @@ paths:
             type: string
       responses:
 
-         200:
-          description: list of author created or updated
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
+        200:
+          $ref: '#/components/responses/AuthorList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
           
   
         
@@ -139,12 +125,13 @@ paths:
                 $ref: '#/components/schemas/Author'
       responses:
         200:
-          description: the response of the put author
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
+          $ref: '#/components/responses/AuthorList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
           
            
            
@@ -163,8 +150,13 @@ paths:
               type: string
         responses:
           200:
-            description: the author is deleted
-         
+            $ref: '#/components/responses/AuthorList200'
+          400:
+            $ref: '#/components/responses/400'
+          403:
+            $ref: '#/components/responses/403'
+          500:
+            $ref: '#/components/responses/500'
   /books/{bookId}/authors/{authorId}:
     put:
       tags:
@@ -184,14 +176,13 @@ paths:
             type: string
       responses:
         200:
-          description: the author of a book
-          content:
-            application/json:
-              schema:
-                
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
-                  
+          $ref: '#/components/responses/bookList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'                  
   /book/author:
     put:
       tags:
@@ -207,12 +198,13 @@ paths:
                 $ref: '#/components/schemas/updateBookAuthor'
       responses:
         200:
-          description: the list of the author and book
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
+          $ref: '#/components/responses/bookList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
 
   /topic:
     
@@ -229,12 +221,13 @@ paths:
             type: string
       responses:
         200:
-          description: all filterd topics
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
+          $ref: '#/components/responses/TopicList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
     put:
       tags:
         - "topic"
@@ -248,12 +241,13 @@ paths:
                 $ref: '#/components/schemas/topic'
       responses:
         200:
-          description: the topic added
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
+          $ref: '#/components/responses/TopicList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
     delete:
       tags:
         - "topic"
@@ -284,13 +278,13 @@ paths:
             type: string
       responses:
         200:
-          description: the topic and book which has been associated
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
-
+          $ref: '#/components/responses/bookList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
   /topic/book:
     put:
       tags:
@@ -304,12 +298,13 @@ paths:
                 $ref: '#/components/schemas/updateBookTopic'
       responses:
         200:
-          description: all the id association in one page 
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/Book'
+          $ref: '#/components/responses/bookList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
   /authors/{pageId}/{pageSizeId}:
     get:
       tags:
@@ -321,16 +316,17 @@ paths:
         - $ref: '#/components/parameters/pathPaginationPageSize'
       responses:
         200:
-          description: the pagination author
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/succefullyResponse'
+          $ref: '#/components/responses/AuthorList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
   /book/import:
     post:
       tags:
-        - "book"
+        - "books"
       summary: import book 
       requestBody:
         content:
@@ -340,18 +336,20 @@ paths:
               properties:
                 excelFile:
                   type: string
-                  format: binary  # Fichier Excel
+                  format: binary 
                 jsonFile:
                   type: string
-                  format: binary  # Fichier JSON
+                  format: binary 
       responses:
         200:
-          description: success
-          content:
-            application/json:
-              schema: 
-                items: 
-                  $ref: '#/components/schemas/Author'
+          $ref: '#/components/responses/bookList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+
 components:
   schemas:
       #the Author component
@@ -421,57 +419,119 @@ components:
         idTopic:
           type: string
    
-    response:
+    responseStatus:
       type: object
       properties:
         schema: 
             type: object
             properties:
-              status:
-                type: object
                
-                properties:
                   code:
                     
                     type: integer
+                    example: 200
                     
                   message: 
                     type: string
-              body: 
-                type: object
-    succefullyResponse:
+                    example: ok
+   
+    responseBodyTemplate:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/responseStatus' 
+        body: 
+          type: object
+    succefullyResponseBook:
       allOf:
-        - $ref: '#/components/schemas/response'
-        - example:
-            status:
-              code: 200
-              message: success
+        - $ref: '#/components/schemas/responseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/Book'
+    successResponseAutor:
+      allOf:
+        - $ref: '#/components/schemas/responseBodyTemplate'
+        - properties:
+           body:
+            type: array
+            items:
+              $ref: '#/components/schemas/Author'
+    successResponseTopic:
+      allOf:
+        - $ref: '#/components/schemas/responseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items:
+                $ref: '#/components/schemas/topic'
+
+
     badRequest:
       allOf:
-        - $ref: '#/components/schemas/response'
+        - $ref: '#/components/schemas/responseBodyTemplate'
         - example:
             status:
               code: 400
               message: bad request
+            body: {}
     forbidden:
       allOf:
-        - $ref: '#/components/schemas/response'
+        - $ref: '#/components/schemas/responseBodyTemplate'
         - example:
             status:
               code: 403
-              message: bad request
+              message: Forbiedden
+            body: {}
     ServerError:
       allOf:
-        - $ref: '#/components/schemas/response'
+        - $ref: '#/components/schemas/responseBodyTemplate'
         - example:
             status:
               code: 500
               message: internal server error
+            body: {}
 
               
 
-              
-
+  responses:
+    bookList200:
+      description: list of all books
+      content:
+        application/json:
+          schema: 
+            $ref: '#/components/schemas/succefullyResponseBook'
+    AuthorList200:
+      description: list of authors 
+      content:
+        application/json:
+          schema: 
+            $ref: '#/components/schemas/successResponseAutor'
+    TopicList200:
+      description: list of topic
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/successResponseTopic'
+    400:
+      description: bad request 
+      content:
+        application/json:
+          schema: 
+            $ref: '#/components/schemas/badRequest'
+    403:
+      description: forbidden 
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/forbidden'
+    500:
+      description: server error 
+      content:
+        application/json:
+          schema: 
+            $ref: '#/components/schemas/ServerError'
     
   parameters:
     queryPage:
@@ -517,4 +577,4 @@ components:
   
 
           
-
+# vitaina le TD4                                      
