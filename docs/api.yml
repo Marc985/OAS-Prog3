@@ -377,22 +377,61 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: 
-              type: object
-              properties:
-                items:
-                  $ref: '#/components/schemas/visitor'
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/visitor'
       responses:
         200:
-          $ref: '#/components/schemas/visitor'
+          $ref: '#/components/responses/visitorList200'
         400:
           $ref: '#/components/responses/400'
         403:
           $ref: '#/components/responses/403'
         500:
           $ref: '#/components/responses/500'
- 
-    
+  /borrow:
+    put:
+      tags:
+        - "visitor"
+      summary: the visitor who borrows book
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/updateVistorAndBook'
+      responses:
+        200:
+          $ref: '#/components/responses/visitorList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /giveBack:
+    put:
+      tags:
+        - "visitor"
+      summary: the visitor who return book 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/updateVistorAndBook'
+      responses:
+        200:
+          $ref: '#/components/responses/visitorList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
 components:
   schemas:
       #the Author component
@@ -524,7 +563,14 @@ components:
               items:
                 $ref: '#/components/schemas/topic'
 
-
+    successResponseVisitor:
+      allOf:
+        - $ref: '#/components/schemas/responseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items: 
+                $ref: '#/components/schemas/visitor'
     badRequest:
       allOf:
         - $ref: '#/components/schemas/responseBodyTemplate'
@@ -571,6 +617,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/successResponseTopic'
+    visitorList200:
+      description: list of visitor 
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/successResponseVisitor'  
     400:
       description: bad request 
       content:
