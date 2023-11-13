@@ -432,6 +432,69 @@ paths:
           $ref: '#/components/responses/403'
         500:
           $ref: '#/components/responses/500'
+  /book/{idBook}/:
+    get:
+      description: checking wether a book is borrowed or available
+      summary: return available or borrowing book
+      parameters:
+        - in: path
+          name: idBook
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/bookStatus200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /visitor/{idVisitor}/borrowBook:
+
+    get:
+      description:  the book borrowed  by the given visitor
+      summary: return a list of borrowed book
+      parameters:
+        - in: path
+          name: idVisitor
+          required: true
+          schema:   
+            type: string
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate' 
+      responses:
+        200:
+          $ref: '#/components/responses/bookList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+  /visitor/{idVisitor}/returnBook:
+    get:
+      description: the book retruned by the given vistor
+      summary: a list of  returned book
+      parameters:
+        - in: path
+          name: idVisitor
+          required: true
+          schema:   
+            type: string
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate' 
+        
+      responses:
+        200:
+          $ref: '#/components/responses/bookList200'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
 components:
   schemas:
       #the Author component
@@ -571,6 +634,14 @@ components:
               type: array
               items: 
                 $ref: '#/components/schemas/visitor'
+    successResponseBookStatus:
+      allOf:
+        - $ref: '#/components/schemas/responseBodyTemplate'
+        - properties:
+            body:
+              type: array
+              items: 
+                $ref: '#/components/schemas/bookStatus'
     badRequest:
       allOf:
         - $ref: '#/components/schemas/responseBodyTemplate'
@@ -595,9 +666,14 @@ components:
               code: 500
               message: internal server error
             body: {}
-
-              
-
+    bookStatus:
+      allOf:
+        - $ref: '#/components/schemas/Book'
+        - properties:
+           status:
+            enum:
+              - Borrwed
+              - available
   responses:
     bookList200:
       description: list of all books
@@ -622,7 +698,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/successResponseVisitor'  
+            $ref: '#/components/schemas/successResponseVisitor' 
+    bookStatus200:
+      description: list of book status 
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/successResponseBookStatus'
     400:
       description: bad request 
       content:
@@ -674,6 +756,23 @@ components:
       schema:
         type: integer
         default: 50
+
+    StartDate:
+      in: query
+      name: startDate 
+      required: false
+      schema:
+        type: string
+        format: date
+    EndDate:
+
+      in: query
+      name: endDate
+      required: false
+      schema: 
+        type: string
+        format: date
+   
    
     
     
