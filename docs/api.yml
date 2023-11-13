@@ -12,6 +12,7 @@ tags:
     description: author operation
   - name: topic
     description: topic operation
+  - name: visitor
 paths:
   /books:
     
@@ -349,7 +350,49 @@ paths:
           $ref: '#/components/responses/403'
         500:
           $ref: '#/components/responses/500'
-
+  /visitors:
+    get:
+      tags:
+        - "visitor"
+      summary: get list of one or many visitors 
+      parameters:
+        - in: query
+          name: visitorName
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/schemas/visitor'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - "visitor"
+      summary: add new visitor 
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                items:
+                  $ref: '#/components/schemas/visitor'
+      responses:
+        200:
+          $ref: '#/components/schemas/visitor'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+ 
+    
 components:
   schemas:
       #the Author component
@@ -442,6 +485,12 @@ components:
         name: 
           type: string
         reference:
+          type: string
+    updateVistorAndBook:
+      properties:
+        idVisitor:
+          type: string
+        idBook: 
           type: string
     responseBodyTemplate:
       type: object
