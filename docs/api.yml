@@ -473,6 +473,9 @@ paths:
           $ref: '#/components/responses/403'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - OAuth2: [admin]
+      
   /visitor/{idVisitor}/returnBook:
     get:
       description: the book retruned by the given vistor
@@ -495,6 +498,8 @@ paths:
           $ref: '#/components/responses/403'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - OAuth2: [admin]
 components:
   schemas:
       #the Author component
@@ -772,17 +777,21 @@ components:
       schema: 
         type: string
         format: date
-   
+  securitySchemes:
+    OAuth2Implicit:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://your-oauth-provider.com/auth
+          scopes:
+            admin: administrator
+            visitor: visitor
+
+
    
     
     
-
-  
-  
-   
-
 
   
 
           
-# vitaina le TD4                                      
